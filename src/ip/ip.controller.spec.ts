@@ -18,17 +18,17 @@ describe('IpController', () => {
     ipService = module.get<IpService>(IpService);
   });
 
-  it('should throw error because of invalid ip adress', async () => {
+  it('should throw error because of invalid ip adress', () => {
     const ip = 'Bad Ip';
 
     try {
-      await ipController.geo({ ip });
+      ipController.geo({ ip });
     } catch (error) {
       expect(error).toBeInstanceOf(HttpException);
     }
   });
 
-  it('should pass the data because ip adress is valid', async () => {
+  it('should pass the data because ip adress is valid', () => {
     const ip = '178.213.240.40';
 
     const result: IpInfoResponse = {
@@ -40,7 +40,7 @@ describe('IpController', () => {
 
     jest.spyOn(ipService, 'getInformation').mockImplementation(() => result);
 
-    const data = await ipController.geo({ ip });
+    const data = ipController.geo({ ip });
 
     expect(data).toEqual(result);
   });
